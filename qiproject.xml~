@@ -1,4 +1,4 @@
-<project name="publisher">
+<project name="getvalorescorriente">
   <!-- Add your project dependencies here -->
   <!--
   <depends buildtime="true" runtime="true" names="foo" />

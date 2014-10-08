@@ -9,7 +9,6 @@ int main(int argc, char* argv[]) {
   {
     std::cerr << "Wrong number of arguments!" << std::endl;
     std::cerr << "Usage: captureValues NAO_IP sensorFilePath " << std::endl;
-    std::cerr << "Use absolute paths for files (e.g. ~/file.txt or /home/nao/file.txt)" << std::endl;
     exit(2);
   }
 

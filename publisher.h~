@@ -51,6 +51,9 @@ private:
   // Callback called by the DCM every 10ms
   void synchronisedDCMcallback();
 
+  // Set one hardness value to all joint
+  void setStiffness(const float &stiffnessValue);
+
   // Used for postprocess sync with the DCM
   ProcessSignalConnection fDCMPostProcessConnection;
 
