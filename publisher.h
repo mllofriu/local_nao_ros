@@ -31,16 +31,16 @@ public:
 
     virtual ~Publisher();
 
-    void startAcquiring(const std::string &sensorFileName, const std::string &dumpFileName);
+    void startPublishing(const std::string &sensorFileName);
 
-    void stopAcquiring();
+    void stopPublishing();
 
     //void setFile(std::string file);
 
 private:
 
   // Initialisation of ALMemory/DCM link
-  void init(const std::string &sensorFileName, const std::string &dumpFileName);
+  void init(const std::string &sensorFileName);
 
   // ALMemory fast access
   void initFastAccess(const std::string &sensorFileName);

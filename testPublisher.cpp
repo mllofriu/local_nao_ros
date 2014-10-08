@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
     = boost::shared_ptr<AL::ALProxy>(new AL::ALProxy("Publisher", robotIP, port));
 
     const std::string sensorFileName = argv[2];
-    testProxy->callVoid("startPublishing",sensorFileName,dumpFileName);
+    testProxy->callVoid("startPublishing",sensorFileName);
 
     cout << "Capturando\n";
     cout << "Presione una tecla para terminar la captura\n";

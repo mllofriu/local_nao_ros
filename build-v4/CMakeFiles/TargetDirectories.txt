@@ -1,0 +1,2 @@
+/home/biorob/naoqi/worktree/local_nao_ros/build-v4/CMakeFiles/publisher.dir
+/home/biorob/naoqi/worktree/local_nao_ros/build-v4/CMakeFiles/testPublisher.dir

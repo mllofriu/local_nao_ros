@@ -2,7 +2,7 @@
 /// Module to save current values to a file in each DCM iteration (each 10 ms)
 /// </summary>
 
-#include "getvalorescorriente.h"
+#include "publisher.h"
 #include <boost/shared_ptr.hpp>
 #include <alcommon/alproxy.h>
 #include <alcommon/albroker.h>
@@ -35,7 +35,7 @@ Publisher::Publisher(boost::shared_ptr<AL::ALBroker> broker,
     setModuleDescription( "Module to save current values to a file in each DCM iteration (each 10 ms)." );
 
     functionName("startPublishing", getName() , "start");
-    addParam("fileName", "file name to dump records");
+    addParam("fileName", "file name to get the sensors to record from");
     BIND_METHOD(Publisher::startPublishing);
 
     functionName("stopPublishing", getName() , "stop");
@@ -53,7 +53,7 @@ Publisher::~Publisher()
 }
 
 // Start the example
-void Publisher::startPublishing(const std::string &sensorFileName, const std::string &dumpFileName)
+void Publisher::startPublishing(const std::string &sensorFileName)
 {
     signed long isDCMRunning;
 
@@ -82,24 +82,19 @@ void Publisher::startPublishing(const std::string &sensorFileName, const std::st
         throw ALERROR(getName(), "startLoop()", "Error no DCM running ");
     }
 
-    init(sensorFileName, dumpFileName);
+    init(sensorFileName);
     connectToDCMloop();
 }
 
 // Stop the example
-void Publisher::stopAcquiring()
+void Publisher::stopPublishing()
 {
-    //setStiffness(0.0f);
-    // Close file
-    if (dumpFile.is_open())
-        dumpFile.close();
-
     // Remove the postProcess call back connection
     fDCMPostProcessConnection.disconnect();
 }
 
 // Initialisation of ALmemory fast access, DCM commands, Alias, stiffness, ...
-void Publisher::init(const std::string &dumpFileName)
+void Publisher::init(const std::string &sensorFileName)
 {
     initFastAccess(sensorFileName);
     createPositionActuatorAlias();
@@ -123,7 +118,7 @@ void Publisher::initFastAccess(const std::string &sensorFileName)
             getline (sensorFile,line);
             fSensorKeys.push_back(line);
         }
-    } else cout << "GetValoresCorriente: Unable to open file";
+    } else cout << "Publisher: Unable to open file";
     sensorFile.close();
 
 
@@ -131,7 +126,7 @@ void Publisher::initFastAccess(const std::string &sensorFileName)
     fMemoryFastAccess->ConnectToVariables(getParentBroker(), fSensorKeys, false);
 }
 
-void GetValoresCorriente::connectToDCMloop()
+void Publisher::connectToDCMloop()
 {
     // Get all values from ALMemory using fastaccess
     fMemoryFastAccess->GetValues(sensorValues);
@@ -140,7 +135,7 @@ void GetValoresCorriente::connectToDCMloop()
     try
     {
         fDCMPostProcessConnection =
-                getParentBroker()->getProxy("DCM")->getModule()->atPostProcess(boost::bind(&GetValoresCorriente::synchronisedDCMcallback, this));
+                getParentBroker()->getProxy("DCM")->getModule()->atPostProcess(boost::bind(&Publisher::synchronisedDCMcallback, this));
     }
     catch (const AL::ALError &e)
     {
