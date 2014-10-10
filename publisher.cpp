@@ -19,6 +19,7 @@
 #include <boost/bind.hpp>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -41,10 +42,15 @@ Publisher::Publisher(boost::shared_ptr<AL::ALBroker> broker,
     functionName("stopPublishing", getName() , "stop");
     BIND_METHOD(Publisher::stopPublishing);
 
-    // hack para evitar excepcion de boost
-    // TODO: averiguar como sacar esto
-    //    startAcquiring("~/currentValues.data");
-    //    stopAcquiring();
+    int argc = 0;
+    char** argv = NULL;
+    ros::init(argc, argv, "nao_publisher");
+    ros::NodeHandle n;
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("nao_chatter", 1);
+    std_msgs::String msg;
+    msg.data = "hello world";
+    
+    chatter_pub.publish(msg);
 }
 
 Publisher::~Publisher()

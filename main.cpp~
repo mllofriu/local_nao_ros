@@ -22,7 +22,9 @@ extern "C"
     AL::ALBrokerManager::getInstance()->addBroker(pBroker);
 
     // create module instances
-    AL::ALModule::createModule<GetValoresCorriente>(pBroker,"GetValoresCorriente" );
+    AL::ALModule::createModule<Publisher>(pBroker,"Publisher" );
+
+    .
     return 0;
   }
 

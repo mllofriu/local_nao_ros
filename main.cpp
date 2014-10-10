@@ -23,6 +23,8 @@ extern "C"
 
     // create module instances
     AL::ALModule::createModule<Publisher>(pBroker,"Publisher" );
+
+    
     return 0;
   }
 

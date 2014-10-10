@@ -1,23 +1,6 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(naoqi_launcher)
-
+cmake_minimum_required(VERSION 2.6.4 FATAL_ERROR)
+project(publisher)
 find_package(qibuild)
-
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  std_msgs
-)
-
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES naoqi_launcher
-#  CATKIN_DEPENDS roscpp std_msgs
-#  DEPENDS system_lib
-)
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
 
 set(_srcs
     main.cpp

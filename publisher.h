@@ -7,9 +7,12 @@
 
 #include <boost/shared_ptr.hpp>
 #include <alcommon/almodule.h>
-#include <boost/shared_ptr.hpp>
 #include <iostream>
 #include <fstream>
+
+// ROS includes
+#include "ros/ros.h"
+#include "std_msgs/String.h"
 
 using namespace std;
 
